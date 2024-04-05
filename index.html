@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Information Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #007bff;
+            cursor: pointer;
+        }
+        
+        .highlighted {
+            background-color: yellow;
+            transition: background-color 0.5s ease
+        }
+        
+        .slide-content {
+            display: none;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Cancer Information Website</h1>
+    </header>
+    <main>
+        <h2>Speak "guide me" </h2>
+        <h2>Speak "open about" </h2>
+        <div id="about" class="slide-content">
+            <h3> "Cancer is a group of diseases characterized by the uncontrolled growth and spread of abnormal cells. It can affect almost any part of the body. The causes of cancer are diverse, including genetic factors, lifestyle choices, and environmental exposures".</h3>
+        </div>
+        <h2>Speak "open types" </h2>
+        <div id="types" class="slide-content">
+            <h3> "There are more than 100 different types of cancer, each with its own characteristics and treatment options. Some common types of cancer include:"</h3>
+            <ul>
+                <li>Breast cancer</li>
+                <li>Lung cancer</li>
+                <li>Prostate cancer</li>
+                <li>Colon cancer</li>
+                <li>Leukemia</li>
+                <li>...and many more</li>
+            </ul>
+        </div>
+        <h2>Speak "open treatment" </h2>
+        <div id="treatment" class="slide-content">
+            <h3> "Prevention and early detection are key in the fight against cancer. Adopting a healthy lifestyle, avoiding tobacco and excessive alcohol consumption, maintaining a healthy weight, and getting regular screenings can reduce the risk of developing cancer".</h3>
+            <h3> "Treatment options for cancer include surgery, chemotherapy, radiation therapy, immunotherapy, and targeted therapy. The choice of treatment depends on the type and stage of cancer, as well as the patient's overall health and preferences".</h3>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cancer Information Website</p>
+    </footer>
+
+    <script>
+        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.continuous = true;
+        var isGuidanceEnabled = false;
+
+        recognition.onresult = function(event) {
+            var result = event.results[event.results.length - 1][0].transcript.toLowerCase();
+            if (!isGuidanceEnabled && result.includes("guide me")) {
+                isGuidanceEnabled = true;
+                speakText("Voice commands enabled. You can now say 'open about', 'open types', or 'open treatment' to view and hear information.");
+                highlightCommands();
+            } else if (isGuidanceEnabled) {
+                if (result.includes("open about")) {
+                    toggleSlide('about');
+                    highlightCommand("aboutTitle");
+                } else if (result.includes("open types")) {
+                    toggleSlide('types');
+                    highlightCommand("typesTitle");
+                } else if (result.includes("open treatment")) {
+                    toggleSlide('treatment');
+                    highlightCommand("treatmentTitle");    
+                }
+            }
+        }
+
+        function toggleSlide(id) {
+            var slide = document.getElementById(id);
+            if (slide.style.display === "none") {
+                slide.style.display = "block";
+                speakText(slide.textContent);
+            } else {
+                slide.style.display = "none";
+            }
+        }
+
+        function highlightCommand(result) {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                if (title.textContent.toLowerCase().includes(result)) {
+                    title.classList.add("highlighted");
+                    setTimeout(function() {
+                        title.classList.remove("highlighted");
+                    }, 1000); // Remove the highlight after 1 second
+                }
+            });
+        }
+
+        function highlightCommands() {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                title.classList.add("highlighted");
+                setTimeout(function() {
+                    title.classList.remove("highlighted");
+                }, 1000); // Remove the highlight after 1 second
+            });
+        }
+
+        function speakText(text) {
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = text;
+            utterance.volume = 1;
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function startListening() {
+            recognition.start();
+        }
+
+        function stopListening() {
+            recognition.stop();
+        }
+    </script>
+    <button onclick="startListening()">Start Listening</button>
+    <button onclick="stopListening()">Stop Listening</button>
+</body>
+</html>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+</head>
+<body>
+    <h1>Welcome to Page 1</h1>
+    
+
+    <!-- Next button -->
+    <a href="333333.html">Next</a>
+
+
+    <a href="2222222.html">Go back to Page 3</a>
+
+</body>
+</html>
+
+
+
+    <!-- Script to handle the next button action -->
+    <script>
+        function goToNextPage() {
+            // Replace this line with the logic to navigate to the next page
+            // For example, window.location.href = 'next_page.html';
+            alert('Navigating to the next page');
+        }
+    </script>
+</body>
+</html>
