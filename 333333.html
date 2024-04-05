@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कैंसर जानकारी वेबसाइट</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #007bff;
+            cursor: pointer;
+        }
+        
+        .highlighted {
+            background-color: yellow;
+            transition: background-color 0.5s ease;
+        }
+        
+        .slide-content {
+            display: none;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>कैंसर जानकारी वेबसाइट</h1>
+    </header>
+    <main>
+        <h2>कहें "क्या करें"</h2>
+        <h2>कहें "सूचित करें"</h2>
+        <div id="about" class="slide-content">
+            <h3> "कैंसर को एक बड़ी समस्या माना जाता है जो उसकी अथवा उसके उपचार प्रणाली के अणुओं के एक स्थायी बदलाव से होता है। यह किसी भी शारीरिक भाग को प्रभावित कर सकता है। कैंसर के लक्षण, जीवन प्रक्रियाएँ, और पर्यावरणीय प्रभावों को शामिल किया जाता हैं".</h3>
+        </div>
+        <h2>कहें "विविधताएँ"</h2>
+        <div id="types" class="slide-content">
+            <h3> "कैंसर कई प्रकार का हो सकता है, जो स्वाभाविकता और उपचार पसंदिता के साथ संयुक्त रूप से होते हैं। उपचार के लिए कई प्रकार के विकल्प होते हैं, जो उसके प्रकार और स्थिति के आधार पर चयनित किए जाते हैं, और इसके अतिरिक्त शरीर के गुण और पसंदों के अधिक विकल्पों पर प्रभाव डालते हैं".</h3>
+            <ul>
+                <li>कैंसर कील</li>
+                <li>मुख कैंसर</li>
+                <li>नाक कैंसर</li>
+                <li>गले कैंसर</li>
+                <li>ब्रेस्ट कैंसर</li>
+                <li>...और बहुत कुछ</li>
+            </ul>
+        </div>
+        <h2>कहें "उपचार"</h2>
+        <div id="treatment" class="slide-content">
+            <h3> "कैंसर का इलाज सदैव संभव होना चाहिए। स्वस्थ जीवनशैली, मधुमेह और उच्च रक्तचाप के साथ, संतुलित आहार का सेवन करते हुए, सही व्यायाम करते हुए, उचित विश्राम करते हुए, और मान्य उपायों का पालन करते हुए, कैंसर के खिलाफ रक्षा को बढ़ावा देना महत्वपूर्ण है". </h3>
+            <h3> "कैंसर का इलाज करने की प्राथमिकता, उसके प्रकार, और स्थिति के आधार पर किया जाता है, और इसके साथ ही उपायों और पसंदों के आधार पर विभिन्न चिकित्सा विकल्पों को चुना जाता है, साथ ही शारीरिक सामग्री और पसंदों के अधिक विकल्पों पर प्रभाव डालता है".</h3>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 कैंसर जानकारी वेबसाइट</p>
+    </footer>
+
+    <script>
+        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.lang = 'hi-IN'; // Setting recognition language to Hindi
+        recognition.continuous = true;
+        var isGuidanceEnabled = false;
+
+        recognition.onresult = function(event) {
+            var result = event.results[event.results.length - 1][0].transcript.toLowerCase();
+            if (!isGuidanceEnabled && (result.includes("क्या करें") || result.includes("मुझे निर्देशित करें"))) { // "guide me" in Hindi
+                isGuidanceEnabled = true;
+                speakText("आवाज निर्देश दिया जा रहा है। अब 'सूचित करें', 'विविधताएँ', या 'उपचार' कहें।");
+                highlightCommands();
+            } else if (isGuidanceEnabled) {
+                if (result.includes("सूचित करें") || result.includes("जानकारी")) { // "open about" in Hindi
+                    toggleSlide('about');
+                    highlightCommand("जानकारी");
+                } else if (result.includes("विविधताएँ") || result.includes("प्रकार")) { // "open types" in Hindi
+                    toggleSlide('types');
+                    highlightCommand("प्रकार");
+                } else if (result.includes("उपचार") || result.includes("इलाज")) { // "open treatment" in Hindi
+                    toggleSlide('treatment');
+                    highlightCommand("इलाज");    
+                }
+            }
+        }
+
+        function toggleSlide(id) {
+            var slide = document.getElementById(id);
+            if (slide.style.display === "none") {
+                slide.style.display = "block";
+                speakText(slide.textContent);
+            } else {
+                slide.style.display = "none";
+            }
+        }
+
+        function highlightCommand(result) {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                if (title.textContent.toLowerCase().includes(result)) {
+                    title.classList.add("highlighted");
+                    setTimeout(function() {
+                        title.classList.remove("highlighted");
+                    }, 1000); // Remove the highlight after 1 second
+                }
+            });
+        }
+
+        function highlightCommands() {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                title.classList.add("highlighted");
+                setTimeout(function() {
+                    title.classList.remove("highlighted");
+                }, 1000); // Remove the highlight after 1 second
+            });
+        }
+
+        function speakText(text) {
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = text;
+            utterance.volume = 1;
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.lang = 'hi-IN'; // Setting utterance language to Hindi
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function startListening() {
+            recognition.start();
+        }
+
+        function stopListening() {
+            recognition.stop();
+        }
+    </script>
+    <button onclick="startListening()">ध्वनि स्वीकृति करें</button>
+    <button onclick="stopListening()">ध्वनि रोकें</button>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+</head>
+<body>
+    <h1>Welcome to Page 2</h1>
+    
+
+    <!-- Link to go back to page 1 -->
+    <a href="11111111.html">Go back to Page 1</a>
+
+
+
+    <a href="2222222.html">Go back to Page 3</a>
+
+</body>
+</html>
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>கேன்சர் தகவல் இணையத்தளம்</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #007bff;
+            cursor: pointer;
+        }
+        
+        .highlighted {
+            background-color: yellow;
+            transition: background-color 0.5s ease;
+        }
+        
+        .slide-content {
+            display: none;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>கேன்சர் தகவல் இணையத்தளம்</h1>
+    </header>
+    <main>
+        <h2>சொல்லி "என்ன செய்யவும்" </h2>
+        <h2>சொல்லி "குறிப்பிடவும்" </h2>
+        <div id="about" class="slide-content">
+            <h3> "கேன்சர் ஒரு குழப்பமாக கருதப்படுகிறது அவற்றின் அல்லது தொல்லை மாற்றுத்துறையின் அணுகுமுறையின் தடுப்பூசியின் அடையாளங்களின் கட்டாயமாக செயற்படுகிறது. அது போல, எந்த உடல் பகுப்புக்கும் விநியோகப்படுகிறது. கேன்சர் அறிகுறிகள் வேறுபடுகின்றன. அவற்றின் அறிகுறி, வாழ்க்கை முறைகள், சூழல் உத exposedகளை உள்ளடக்குகின்றன".</h3>
+        </div>
+        <h2>சொல்லி "வேறுபாடுகள்" </h2>
+        <div id="types" class="slide-content">
+            <h3> "கேன்சர் பல வேறுபாடுகள் உள்ளன, அவை தனித்துவம் மற்றும் சிகிச்சை விருப்பங்களுடன் ஒருங்கிணைந்து வருகின்றன. சிகிச்சைக்கு பல வேறுபாடுகள் உள்ளன, அவற்றின் தனித்துவம் மற்றும் சிகிச்சை விருப்பங்களுடன் இருக்கும் போது உடல் பகுப்புகளுக்கு உடனே கண்காணிக்கப்படும்".</h3>
+            <ul>
+                <li>கெண்டு கேன்சர்</li>
+                <li>தொண்டு கேன்சர்</li>
+                <li>மூக்கு கேன்சர்</li>
+                <li>தொலைகள் கேன்சர்</li>
+                <li>வெண்கலம்</li>
+                <li>...மற்றும் பல</li>
+            </ul>
+        </div>
+        <h2>சொல்லி "கேன்சர் மருத்துவம்" </h2>
+        <div id="treatment" class="slide-content">
+            <h3> "கேன்சரை எப்போதும் முன்னேற்றம் செய்ய வேண்டும். ஒரு ஆரோக்கிய வாழ்வுச் சமீபத்தியத்தில் கட்டாயமாக, மது மற்றும் அதிகபடியாக குடிநீர் கொண்டிருக்கும், ஆரோக்கிய எடையை சரிசெய்து, நியாயமான விளைவுகளைப் பெறும்படி செய்து, இடைநிலையில் பரிந்துரையிலும் குணமான தீர்வுகளைப் பெறுவதன் மூலம் கேன்சர் எதிர்க்கையை உயர்த்துவது முக்கியமாகும்". </h3>
+            <h3> "கேன்சரை மருத்துவம் செய்யும் விருப்பம், அதன் வகையும் அணிகலன், அவற்றின் அடிப்படையில் மற்றும் நிலையில், கூட்டுத் தீர்வுகளின் அளவின் மேலும் தேர்ந்தெடுக்கப்படுகின்றது, மேலும் உடலின் மென்பொருள் மற்றும் விருப்பங்களின் கோரிக்கைகளின் மேலும் அதிகமான படைப்புகளின் மேல் நிர்வாகிக்கப்படுகிறது".</h3>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 கேன்சர் தகவல் இணையத்தளம்</p>
+    </footer>
+
+    <script>
+        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.lang = 'ta-IN'; // Setting recognition language to Tamil
+        recognition.continuous = true;
+        var isGuidanceEnabled = false;
+
+        recognition.onresult = function(event) {
+            var result = event.results[event.results.length - 1][0].transcript.toLowerCase();
+            if (!isGuidanceEnabled && (result.includes("என்ன செய்யவும்") || result.includes("என்னவென்று சொல்லவும்"))) { // "guide me" in Tamil
+                isGuidanceEnabled = true;
+                speakText("குரல் கட்டமைப்புகள் செயல்படுகின்றன. நீங்கள் இப்போது 'குறிப்பிடவும்', 'கட்டமைக்கவும்', அல்லது 'கட்டமைப்பு' என்று சொல்லுங்கள்.");
+                highlightCommands();
+            } else if (isGuidanceEnabled) {
+                if (result.includes("குறிப்பிடவும்") || result.includes("அறிகுறிகள்")) { // "open about" in Tamil
+                    toggleSlide('about');
+                    highlightCommand("அறிகுறிகள்");
+                } else if (result.includes("கட்டமைக்கவும்") || result.includes("வகைகள்")) { // "open types" in Tamil
+                    toggleSlide('types');
+                    highlightCommand("வகைகள்");
+                } else if (result.includes("கட்டமைப்பு") || result.includes("மருத்துவம்")) { // "open treatment" in Tamil
+                    toggleSlide('treatment');
+                    highlightCommand("மருத்துவம்");    
+                }
+            }
+        }
+
+        function toggleSlide(id) {
+            var slide = document.getElementById(id);
+            if (slide.style.display === "none") {
+                slide.style.display = "block";
+                speakText(slide.textContent);
+            } else {
+                slide.style.display = "none";
+            }
+        }
+
+        function highlightCommand(result) {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                if (title.textContent.toLowerCase().includes(result)) {
+                    title.classList.add("highlighted");
+                    setTimeout(function() {
+                        title.classList.remove("highlighted");
+                    }, 1000); // Remove the highlight after 1 second
+                }
+            });
+        }
+
+        function highlightCommands() {
+            var titles = document.querySelectorAll("h2");
+            titles.forEach(function(title) {
+                title.classList.add("highlighted");
+                setTimeout(function() {
+                    title.classList.remove("highlighted");
+                }, 1000); // Remove the highlight after 1 second
+            });
+        }
+
+        function speakText(text) {
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = text;
+            utterance.volume = 1;
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.lang = 'ta-IN'; // Setting utterance language to Tamil
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function startListening() {
+            recognition.start();
+        }
+
+        function stopListening() {
+            recognition.stop();
+        }
+    </script>
+    <button onclick="startListening()">குரல் அங்கீகரிக்க</button>
+    <button onclick="stopListening()">குரல் நிறுத்து</button>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+</head>
+<body>
+    <h1>Welcome to Page 3</h1>
+
+
+    <!-- Link to go back to page 1 -->
+    <a href="333333.html">Go back to Page 1</a>
+
+
+    <a href="11111111.html">Go back to Page 2</a>
+
+</body>
+</html>
